@@ -1,7 +1,7 @@
 locale: en_US.UTF-8
 timezone: Asia/Tokyo
 ssh_key_file: ~/.ssh/id_rsa.pub
-sysadmin: postmaster@fraction.jp
+sysadmin: postmaster@example.com
 open_ports: 22
 
 database:
@@ -12,8 +12,10 @@ database:
   user: postfix
   password: __REPLACE_DATABASE_PASSWORD__
 
-domain: fraction.jp
+domain: 192.168.33.101.xip.io
 mailname: mailserver.local
+configure_hostname: true
+inventory_hostname: 192.168.33.101.xip.io
 
 vmail_user: vmail
 vmail_uid: 150

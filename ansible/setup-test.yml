@@ -1,0 +1,17 @@
+- hosts: all
+  user: root
+  vars_files:
+    - vars/test.yml
+  tasks:
+    - include: tasks/system.yml
+    - include: tasks/locale.yml
+    - include: tasks/packages.yml
+    - include: tasks/users.yml
+    - include: tasks/mailfiltering.yml
+    - include: tasks/postfixadmin.yml
+    - include: tasks/postfix.yml
+    - include: tasks/dovecot.yml
+    # - include: tasks/vimbadmin.yml
+    # - include: tasks/startup.yml
+  handlers:
+    - include: handlers/handlers.yml

@@ -1,6 +1,17 @@
-- name: Activate hostname
-  command: hostname --file /etc/hostname
-  when: RELOAD_HOSTNAME is defined
-
 - name: Update tzdata
   command: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
+
+# - name: Restart postfix
+#   service: name=postfix state=restarted
+# 
+# - name: Restart dovecot
+#   service: name=dovecot state=restarted
+# 
+# - name: Restart spamassassin
+#   service: name=spamassassin state=restarted
+# 
+# - name: Restart amavis
+#   service: name=amavis state=restarted
+# 
+# - name: Restart clamav-daemon
+#   service: name=clamav-daemon state=restarted

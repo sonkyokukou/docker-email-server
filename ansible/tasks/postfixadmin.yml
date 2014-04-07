@@ -1,0 +1,13 @@
+- name: Download postfixadmin tarball
+  get_url: dest={{ postfixadmin.dest }}/{{ postfixadmin.dirname }}.tar.gz url={{ postfixadmin.tarball }}
+
+- name: Unarchive postfixadmin tarball
+  unarchive: dest={{ postfixadmin.dest }} src={{ postfixadmin.dest }}/{{ postfixadmin.dirname }}.tar.gz
+
+- name: Configure postfixadmin
+  template: src=templates/postfixadmin/config.inc.php dest={{ postfixadmin.dest }}/{{ postfixadmin.dirname }}/config.inc.php
+
+- name: Link postfixadmin
+  file: state=link src={{ postfixadmin.dest }}/{{ postfixadmin.dirname }} dest={{ postfixadmin.dest }}/postfixadmin
+# - name: Remeve postfixadmin setup.php
+#   file: path={{ postfixadmin.dest }}/{{ postfixadmin.dirname }}/setup.php state=absent

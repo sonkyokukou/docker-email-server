@@ -1,0 +1,5 @@
+user     = {{ database.user }}
+password = {{ database.password }}
+hosts    = {{ database.host }}
+dbname   = {{ database.name }}
+query    = SELECT concat(maildir,'Maildir/') FROM mailbox WHERE username='%s'

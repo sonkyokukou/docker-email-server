@@ -1,13 +1,14 @@
 - name: Install postfix config files
-  copy: src=postfix/${item} dest=/etc/postfix
+  copy: src=postfix/{{item}} dest=/etc/postfix
   with_items:
     - header_checks
 
 - name: Install postfix config templates
-  template: src=postfix/${item} dest=/etc/postfix
+  template: src=postfix/{{item}} dest=/etc/postfix
+  # notify: Restart postfix
   with_items:
     - main.cf
     - master.cf
-    - ${db_backend}/sql-virtual-alias-maps.cf
-    - ${db_backend}/sql-virtual-domains-maps.cf
-    - ${db_backend}/sql-virtual-mailbox-maps.cf
+    - "{{ database.provider }}/{{ database.provider }}-virtual-alias-maps.cf"
+    - "{{ database.provider }}/{{ database.provider }}-virtual-domains-maps.cf"
+    - "{{ database.provider }}/{{ database.provider }}-virtual-mailbox-maps.cf"

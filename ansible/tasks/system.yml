@@ -1,6 +1,5 @@
-- name: Configure hostname to ${inventory_hostname}
-  lineinfile: dest=/etc/hostname line=${inventory_hostname} regexp=. state=present
-  notify: Activate hostname
+- name: Configure hostname to {{ inventory_hostname }}
+  hostname: name={{ inventory_hostname }}
   when: configure_hostname is defined
   tags:
     - hostname

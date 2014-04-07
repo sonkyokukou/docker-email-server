@@ -1,0 +1,44 @@
+- name: Install Mail filtering packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - amavisd-new
+    - spamassassin
+    - clamav-daemon
+    - opendkim
+    - postfix-policyd-spf-python
+    - pyzor
+    - razor
+    - arj
+    - cabextract
+    - cpio
+    # - lha
+    - nomarch
+    - pax
+    # - rar
+    # - unrar
+    - unzip
+    - zip
+
+- name: Modify Mail filtering user
+  user: name={{ item.name }} groups={{ item.groups }}
+  # notify: Restart clamav-daemon
+  with_items:
+    - name: clamav
+      groups: 'clamav,amavis'
+    - name: amavis
+      groups: 'amavis,clamav'
+
+- name: Activate Spamassassin
+  lineinfile: dest=/etc/default/spamassassin regexp='^ENABLED=\d+$'
+              line='ENABLED=1' backrefs=yes state=present
+  # notify: Restart spamassassin
+
+- name: Configure amavis config
+  template: src=amavis/{{ item }} dest=/etc/amavis/conf.d
+  with_items:
+    - 15-content_filter_mode
+    - 20-debian_defaults
+  # notify: Restart amavis
+
+- name: Configure procmail config
+  template: src=procmail/procmailrc dest=/etc/procmailrc

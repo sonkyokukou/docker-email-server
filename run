@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+
+sed -i "s/__REPLACE_DATABASE_HOST__/${MYSQL_PORT_3306_TCP_ADDR}/g" /etc/dovecot/dovecot-mysql.conf
+sed -i "s/__REPLACE_DATABASE_PORT__/${MYSQL_PORT_3306_TCP_PORT}/g" /etc/dovecot/dovecot-mysql.conf
+sed -i "s/__REPLACE_DATABASE_PASSWORD__/${POSTFIX_MYSQL_PASSWORD}/g" /etc/dovecot/dovecot-mysql.conf
+
+sed -i "s/__REPLACE_DATABASE_HOST__/${MYSQL_PORT_3306_TCP_ADDR}/g" /etc/postfix/mysql-virtual-alias-maps.cf
+sed -i "s/__REPLACE_DATABASE_PORT__/${MYSQL_PORT_3306_TCP_PORT}/g" /etc/postfix/mysql-virtual-alias-maps.cf
+sed -i "s/__REPLACE_DATABASE_PASSWORD__/${POSTFIX_MYSQL_PASSWORD}/g" /etc/postfix/mysql-virtual-alias-maps.cf
+
+sed -i "s/__REPLACE_DATABASE_HOST__/${MYSQL_PORT_3306_TCP_ADDR}/g" /etc/postfix/mysql-virtual-domains-maps.cf
+sed -i "s/__REPLACE_DATABASE_PORT__/${MYSQL_PORT_3306_TCP_PORT}/g" /etc/postfix/mysql-virtual-domains-maps.cf
+sed -i "s/__REPLACE_DATABASE_PASSWORD__/${POSTFIX_MYSQL_PASSWORD}/g" /etc/postfix/mysql-virtual-domains-maps.cf
+
+sed -i "s/__REPLACE_DATABASE_HOST__/${MYSQL_PORT_3306_TCP_ADDR}/g" /etc/postfix/mysql-virtual-mailbox-maps.cf
+sed -i "s/__REPLACE_DATABASE_PORT__/${MYSQL_PORT_3306_TCP_PORT}/g" /etc/postfix/mysql-virtual-mailbox-maps.cf
+sed -i "s/__REPLACE_DATABASE_PASSWORD__/${POSTFIX_MYSQL_PASSWORD}/g" /etc/postfix/mysql-virtual-mailbox-maps.cf
+
+sed -i "s/__REPLACE_DATABASE_HOST__/${MYSQL_PORT_3306_TCP_ADDR}/g" /opt/postfixadmin/config.inc.php
+sed -i "s/__REPLACE_DATABASE_PORT__/${MYSQL_PORT_3306_TCP_PORT}/g" /opt/postfixadmin/config.inc.php
+sed -i "s/__REPLACE_DATABASE_PASSWORD__/${POSTFIX_MYSQL_PASSWORD}/g" /opt/postfixadmin/config.inc.php
+sed -i "s/__REPLACE_POSTFIXADMIN_SETUP_PASSWORD__/${POSTFIXADMIN_SETUP_PASSWORD}/g" /opt/postfixadmin/config.inc.php
+
+/etc/init.d/clamav-daemon restart
+/etc/init.d/amavis restart
+/etc/init.d/spamassassin restart
+# restart dovecot
+/usr/sbin/dovecot -F -c /etc/dovecot/dovecot.conf &
+/etc/init.d/postfix restart
+freshclam -d -c 1
+
+cd /opt/postfixadmin
+/usr/bin/php -S 0.0.0.0:8080
