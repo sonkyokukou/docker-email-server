@@ -18,7 +18,7 @@ RUN add-apt-repository -y ppa:ondrej/php5
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends \
-    build-essential python2.7-dev python-apt python-jinja2 python-paramiko python-pip python-yaml \
+    build-essential python-apt python-jinja2 python-paramiko python-pip python-yaml \
     && apt-get clean \
     && pip install ansible
 
