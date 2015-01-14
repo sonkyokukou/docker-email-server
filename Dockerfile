@@ -13,12 +13,12 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get -y install python-apt python-software-properties
+RUN apt-get -y install software-properties-common
 RUN add-apt-repository -y ppa:ondrej/php5
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends \
-    python-jinja2 python-paramiko python-pip python-yaml \
+    python-apt python-jinja2 python-paramiko python-pip python-yaml \
     && apt-get clean 
 #    && pip install ansible
 RUN apt-get -y install ansible
