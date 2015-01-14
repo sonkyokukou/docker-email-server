@@ -5,7 +5,7 @@
       value: "{{ mailname }}"
 
 - name: Install essential packages
-  apt: pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=installed force=yes
   with_items:
     - bcrypt
     - bsd-mailx
