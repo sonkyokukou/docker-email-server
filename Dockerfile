@@ -11,7 +11,7 @@ MAINTAINER O. Yuanying "yuan-docker@fraction.jp"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository -y ppa:ondrej/php5
