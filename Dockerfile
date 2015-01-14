@@ -14,7 +14,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get -y install software-properties-common
-RUN add-apt-repository -y ppa:ondrej/php5 ppa:ansible/ansible
+RUN add-apt-repository -y ppa:ondrej/php5
+RUN add-apt-repository -y ppa:ansible/ansible
 RUN apt-get update
 
 #RUN apt-get install -y --no-install-recommends \
