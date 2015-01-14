@@ -18,7 +18,7 @@ RUN add-apt-repository -y ppa:ondrej/php5
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends \
-     autoconf g++-4.6 python-apt python2.7-dev python-jinja2 python-paramiko python-pip python-yaml \
+    python-apt python-jinja2 python-paramiko python-pip python-yaml \
     && apt-get clean 
 #    && pip install ansible
 RUN pip install ansible
