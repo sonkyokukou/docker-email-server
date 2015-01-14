@@ -18,10 +18,10 @@ RUN add-apt-repository -y ppa:ondrej/php5
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends \
-    python-apt python-jinja2 python-paramiko python-pip python-yaml \
+    python-apt python-jinja2 python-paramiko python-pip python-yaml ansible \
     && apt-get clean 
 #    && pip install ansible
-RUN pip install ansible
+#RUN pip install ansible
 
 # RUN dpkg-divert --local --rename --add /sbin/initctl
 # RUN ln -s /bin/true /sbin/initctl
